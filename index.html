@@ -6,17 +6,20 @@
   <title>Freshmen Data Analysis Challenge</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --card-border: #334155;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --success: #22c55e;
-      --danger: #ef4444;
-      --warning: #f59e0b;
-      --purple: #a855f7;
+      --bg: #FFFCF8;             /* Light Cream / Off-White */
+      --card-bg: #FFFFFF;        /* Crisp White Card Base */
+      --card-accent-bg: #FDCFD8; /* Soft Blush Pink */
+      --card-border: #E8B4BC;    /* Soft Rose Border */
+      --header-bg: #9E182B;      /* Deep WBA Crimson */
+      --accent: #D52F42;         /* Vibrant WBA Red */
+      --accent-dark: #B03C4C;    /* Medium Crimson */
+      --accent-deep: #660A18;    /* Dark Maroon */
+      --rose: #CC707E;           /* Muted Rose */
+      --text: #2A080C;           /* Very Dark Maroon Text for contrast */
+      --text-muted: #660A18;     /* Muted Dark Maroon */
+      --success: #16a34a;        /* Green */
+      --danger: #dc2626;         /* Red */
+      --warning: #d97706;        /* Amber */
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
@@ -24,40 +27,527 @@
     .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
 
     /* Top Bar */
-    header { display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); padding: 16px 24px; border-bottom: 2px solid var(--card-border); sticky: top; z-index: 100; }
-    .logo-area h1 { font-size: 1.3rem; color: var(--accent); display: flex; align-items: center; gap: 8px; }
-    .logo-area span { font-size: 0.85rem; color: var(--text-muted); font-weight: normal; }
+    header { display: flex; justify-content: space-between; align-items: center; background: var(--header-bg); padding: 16px 24px; border-bottom: 3px solid var(--accent-dark); position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px rgba(102, 10, 24, 0.15); }
+    .logo-area h1 { font-size: 1.3rem; color: #FFFFFF; display: flex; align-items: center; gap: 8px; }
+    .logo-area span { font-size: 0.85rem; color: #FDCFD8; font-weight: normal; }
 
     .header-stats { display: flex; gap: 16px; align-items: center; }
-    .stat-badge { background: #0f172a; border: 1px solid var(--card-border); padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.95rem; }
+    .stat-badge { background: #FFFFFF; border: 1px solid var(--card-border); color: var(--text); padding: 6px 14px; border-radius: 20px; font-weight: bold; font-size: 0.95rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
     .stat-badge span { color: var(--accent); }
 
-    .timer-badge { font-family: monospace; font-size: 1.1rem; color: var(--warning); border-color: var(--warning); }
+    .timer-badge { font-family: monospace; font-size: 1.1rem; color: var(--accent-deep); background: #FDCFD8; border-color: var(--accent); }
 
     /* Team Modal */
-    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
-    .modal { background: var(--card-bg); border: 1px solid var(--card-border); padding: 30px; border-radius: 12px; max-width: 480px; width: 90%; }
-    .modal h2 { margin-bottom: 8px; color: var(--accent); }
+    .modal-overlay { position: fixed; inset: 0; background: rgba(102, 10, 24, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(4px); }
+    .modal { background: var(--card-bg); border: 2px solid var(--accent); padding: 30px; border-radius: 12px; max-width: 480px; width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+    .modal h2 { margin-bottom: 8px; color: var(--header-bg); }
     .modal p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
     .modal input { width: 100%; padding: 10px 14px; margin-bottom: 12px; background: var(--bg); border: 1px solid var(--card-border); color: var(--text); border-radius: 6px; }
-    .modal button { width: 100%; padding: 12px; background: var(--accent); color: #000; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
-    .modal button:hover { background: var(--accent-hover); }
+    .modal button { width: 100%; padding: 12px; background: var(--accent); color: #FFFFFF; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+    .modal button:hover { background: var(--accent-dark); }
 
     /* Main Sections */
-    .section-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; margin-top: 24px; }
-    .section-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+    .section-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 24px; margin-top: 24px; box-shadow: 0 4px 6px rgba(158, 24, 43, 0.05); }
+    .section-title { font-size: 1.25rem; font-weight: bold; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; color: var(--header-bg); }
     .section-desc { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px; }
 
     /* Challenge 1 Grid */
     .clues-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px; }
     .clue-btn { background: var(--bg); border: 1px solid var(--card-border); padding: 12px; border-radius: 8px; color: var(--text); text-align: left; cursor: pointer; transition: all 0.2s; font-size: 0.88rem; position: relative; }
-    .clue-btn:hover:not(:disabled) { border-color: var(--accent); }
-    .clue-btn.selected { border-color: var(--accent); background: rgba(56, 189, 248, 0.1); }
-    .clue-btn:disabled { opacity: 0.7; cursor: not-allowed; }
-    .clue-btn.correct { border-color: var(--success) !important; background: rgba(34, 197, 94, 0.15) !important; }
-    .clue-btn.wrong { border-color: var(--danger) !important; background: rgba(239, 68, 68, 0.15) !important; }
+    .clue-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--card-accent-bg); }
+    .clue-btn.selected { border-color: var(--accent); background: var(--card-accent-bg); font-weight: bold; }
+    .clue-btn:disabled { opacity: 0.8; cursor: not-allowed; }
+    .clue-btn.correct { border-color: var(--success) !important; background: rgba(34, 197, 94, 0.15) !important; color: #14532d; }
+    .clue-btn.wrong { border-color: var(--danger) !important; background: rgba(239, 68, 68, 0.15) !important; color: #7f1d1d; }
 
     /* Action Buttons Part 1 Task 2 */
     .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-    .action-card { background: var(--bg); border: 1px solid var(--card-border); padding: 14px; border-radius: 8px; cursor: pointer; text-align: left; }
-    .
+    .action-card { background: var(--bg); border: 1px solid var(--card-border); padding: 14px; border-radius: 8px; cursor: pointer; text-align: left; color: var(--text); }
+    .action-card:hover:not(.locked) { border-color: var(--accent); background: var(--card-accent-bg); }
+    .action-card.locked { cursor: not-allowed; opacity: 0.85; }
+    .action-card.chosen { border-color: var(--header-bg); background: var(--card-accent-bg); font-weight: bold; }
+
+    /* Part 2 Layout */
+    .p2-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media(max-width: 768px) { .p2-layout { grid-template-columns: 1fr; } .action-grid { grid-template-columns: 1fr; } }
+
+    .slider-group { margin-bottom: 14px; }
+    .slider-label { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 4px; color: var(--text); }
+    .slider-input { width: 100%; accent-color: var(--accent); }
+
+    .chart-box { background: var(--bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 12px; text-align: center; }
+    canvas { max-width: 100%; height: auto; }
+
+    /* Part 3 Questions */
+    .p3-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .p3-card { background: var(--bg); border: 1px solid var(--card-border); padding: 16px; border-radius: 8px; }
+    .p3-card h4 { font-size: 0.95rem; margin-bottom: 8px; color: var(--header-bg); }
+    .p3-card p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+    .p3-opt { width: 100%; text-align: left; padding: 8px 12px; margin-bottom: 6px; background: #FFFFFF; border: 1px solid var(--card-border); color: var(--text); border-radius: 4px; cursor: pointer; font-size: 0.82rem; }
+    .p3-opt:hover:not(:disabled) { border-color: var(--accent); background: var(--card-accent-bg); }
+    .p3-opt:disabled { cursor: not-allowed; }
+    .p3-opt.correct { background: rgba(34, 197, 94, 0.2); border-color: var(--success); color: #14532d; font-weight: bold; }
+    .p3-opt.wrong { background: rgba(239, 68, 68, 0.2); border-color: var(--danger); color: #7f1d1d; }
+
+    /* Utility */
+    .btn-main { background: var(--accent); color: #FFFFFF; font-weight: bold; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 10px; transition: background 0.2s; }
+    .btn-main:hover:not(:disabled) { background: var(--accent-dark); }
+    .btn-main:disabled { background: var(--card-border); color: var(--text-muted); cursor: not-allowed; }
+    .feedback { font-size: 0.85rem; margin-top: 10px; padding: 8px 12px; border-radius: 6px; display: none; }
+    .feedback.show { display: block; }
+    .feedback.good { background: rgba(34, 197, 94, 0.15); color: #15803d; border: 1px solid var(--success); }
+    .feedback.bad { background: rgba(239, 68, 68, 0.15); color: #b91c1c; border: 1px solid var(--danger); }
+
+    .summary-box { background: var(--card-accent-bg); border: 2px solid var(--accent); padding: 20px; border-radius: 8px; text-align: center; display: none; margin-top: 24px; }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header>
+    <div class="logo-area">
+      <h1>📊 Data Challenge <span>(Freshmen Edition)</span></h1>
+    </div>
+    <div class="header-stats">
+      <div class="stat-badge">Team: <span id="display-team-name">Not Set</span></div>
+      <div class="stat-badge">Score: <span id="total-score">0</span> / 1000</div>
+      <div class="stat-badge timer-badge" id="timer-display">15:00</div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- PART 1 -->
+    <div class="section-card">
+      <div class="section-title">
+        <span>Part 1: The Online Bakery Mystery 🧁</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Max: 400 pts</span>
+      </div>
+      <p class="section-desc"><strong>Scenario:</strong> Website visits jumped by +20% this month, but total bakery orders stayed flat! Why?</p>
+      
+      <!-- Task 1 -->
+      <h3 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--header-bg);">Task 1: Choose EXACTLY 4 useful clues (Signal vs. Distraction)</h3>
+      <div class="clues-grid" id="clues-container"></div>
+      <button class="btn-main" id="btn-submit-clues" onclick="submitClues()" disabled>Submit 4 Clues (Locks Answers)</button>
+      <div class="feedback" id="clues-feedback"></div>
+
+      <!-- Task 2 -->
+      <div id="part1-task2" style="margin-top: 25px; display: none;">
+        <h3 style="font-size: 0.95rem; margin-bottom: 6px; color: var(--header-bg);">Task 2: Choose Your Business Action</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Points earned will be revealed AFTER you submit your choice!</p>
+        <div class="action-grid" id="action-grid"></div>
+        <div class="feedback" id="action-feedback"></div>
+      </div>
+    </div>
+
+    <!-- PART 2 -->
+    <div class="section-card">
+      <div class="section-title">
+        <span>Part 2: Retail Floor Space Sandbox 🛍️</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">Goal: $32,500 Profit (300 pts)</span>
+      </div>
+      <p class="section-desc">Adjust store floor space sliders (all start at 0%). Try to hit over <strong>$32,500</strong> total profit without exceeding 100% space!</p>
+      
+      <div class="p2-layout">
+        <div>
+          <div id="sliders-container"></div>
+          <div style="margin-top: 10px; padding: 10px; background: var(--bg); border: 1px solid var(--card-border); border-radius: 6px; font-size: 0.88rem;">
+            Total Allocated Space: <strong id="total-space">0%</strong> / 100%
+          </div>
+        </div>
+
+        <div>
+          <div class="chart-box">
+            <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">3D Profit & Metrics Visualizer</h4>
+            <canvas id="canvas3d" width="380" height="220"></canvas>
+            <div style="margin-top: 10px; font-size: 0.9rem;">
+              Total Profit: <strong id="p2-profit" style="color: var(--accent-deep); font-weight: bold;">$0</strong>
+            </div>
+          </div>
+          <button class="btn-main" style="width: 100%; margin-top: 12px;" id="btn-submit-p2" onclick="submitPart2()">Lock In Store Allocation</button>
+          <div class="feedback" id="p2-feedback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PART 3 -->
+    <div class="section-card">
+      <div class="section-title">
+        <span>Part 3: Spot the 6 Analytics Tricks! 🔍</span>
+        <span style="font-size: 0.85rem; color: var(--text-muted);">6 x 50 pts = 300 pts</span>
+      </div>
+      <p class="section-desc">Don't let misleading graphs and bad data fool your team! Choose carefully—answers lock instantly.</p>
+      
+      <div class="p3-grid" id="p3-grid"></div>
+    </div>
+
+    <!-- FINAL REPORT -->
+    <div class="summary-box" id="final-summary">
+      <h2 style="color: var(--header-bg); margin-bottom: 10px;">🎉 Challenge Completed!</h2>
+      <p style="font-size: 1.1rem; margin-bottom: 15px;">Final Score: <strong id="final-score-val" style="color: var(--accent-dark);">0</strong> / 1000</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Get ready to present your 1-minute pitch to the class!</p>
+      <button class="btn-main" onclick="window.print()">Print / Save Results PDF</button>
+    </div>
+
+  </div>
+
+  <!-- Team Setup Modal -->
+  <div class="modal-overlay" id="team-modal">
+    <div class="modal">
+      <h2>🚀 Welcome Freshmen!</h2>
+      <p>Enter your team details to start your 15-minute business data challenge.</p>
+      <input type="text" id="input-team-name" placeholder="Team Name (e.g., Data Wizards)" required>
+      <input type="text" id="input-leader-name" placeholder="Team Leader Name" required>
+      <button onclick="startChallenge()">Start 15-Min Timer & Play</button>
+    </div>
+  </div>
+
+  <script>
+    // Global State
+    let totalScore = 0;
+    let timerSeconds = 15 * 60;
+    let timerInterval = null;
+
+    // Clues Data for Part 1
+    const cluesData = [
+      { id: 1, text: "📱 Mobile traffic rose +40%, but mobile checkout drops off at payment step.", isSignal: true },
+      { id: 2, text: "☕ Local coffee shop opened 2 blocks away last week.", isSignal: false },
+      { id: 3, text: "💳 Payment gateway logs show 25% of mobile credit card transactions failed.", isSignal: true },
+      { id: 4, text: "🌧️ It rained 4 extra days compared to last month.", isSignal: false },
+      { id: 5, text: "⏱️ Web server response time jumped from 0.4s to 3.2s on mobile.", isSignal: true },
+      { id: 6, text: "📸 Bakery's Instagram page added 150 new followers.", isSignal: false },
+      { id: 7, text: "🛒 Customer exit survey shows 38% complained mobile page froze at checkout.", isSignal: true },
+      { id: 8, text: "📦 Flour and sugar supplier costs went up 3%.", isSignal: false }
+    ];
+    let selectedClues = [];
+
+    // Actions Data for Part 1 Task 2
+    const actionsData = [
+      { id: 'A', text: "🔧 Fix mobile checkout bugs & upgrade server capacity immediately.", pts: 200, desc: "Best decision! Addresses the exact bottleneck proven by data." },
+      { id: 'B', text: "💸 Run a 20% discount code across all social media pages.", pts: 50, desc: "Brings even more traffic to a broken checkout page, wasting money." },
+      { id: 'C', text: "🎨 Redesign the entire website home page graphics.", pts: 30, desc: "Home page isn't the issue—traffic is already high!" },
+      { id: 'D', text: "🚚 Offer free delivery on orders over $50.", pts: 80, desc: "Nice perk, but doesn't solve credit card processing failures." }
+    ];
+
+    // Part 2 Categories
+    const categoriesData = [
+      { name: "Clothing", profitPerPct: 350, margin: "40%" },
+      { name: "Electronics", profitPerPct: 220, margin: "20%" },
+      { name: "Beauty", profitPerPct: 320, margin: "40%" },
+      { name: "Home & Kitchen", profitPerPct: 250, margin: "35%" },
+      { name: "Toys", profitPerPct: 180, margin: "30%" },
+      { name: "Grocery", profitPerPct: 90, margin: "15%" }
+    ];
+    let allocations = { Clothing:0, Electronics:0, Beauty:0, Home:0, Toys:0, Grocery:0 };
+
+    // Part 3 Data Tricks
+    const p3Data = [
+      {
+        q: "1. Correlation Trap",
+        desc: "Ice cream sales and sunburns both rise in July. Does ice cream cause sunburns?",
+        opts: [
+          { text: "Yes, sugar causes skin damage.", correct: false },
+          { text: "No, summer heat drives both.", correct: true },
+          { text: "Yes, data never lies.", correct: false }
+        ]
+      },
+      {
+        q: "2. Visual Graph Trick",
+        desc: "A chart's Y-axis starts at 90% instead of 0%, making a 1% drop look huge. What is this?",
+        opts: [
+          { text: "Truncated Y-Axis Distortion", correct: true },
+          { text: "Standard Profit Graph", correct: false },
+          { text: "Predictive Forecasting", correct: false }
+        ]
+      },
+      {
+        q: "3. Survey Bias",
+        desc: "You survey only loyal VIP members about price hikes. What is wrong?",
+        opts: [
+          { text: "Nothing, VIPs know best.", correct: false },
+          { text: "Sampling Bias (Hides why regular buyers leave).", correct: true },
+          { text: "Data cleaning error.", correct: false }
+        ]
+      },
+      {
+        q: "4. Outlier Distortion",
+        desc: "10 workers earn $40k/yr, but the CEO earns $5 Million. The average salary looks high. Why?",
+        opts: [
+          { text: "Extreme outlier skews the mean.", correct: true },
+          { text: "Everyone gets paid fairly.", correct: false },
+          { text: "SQL Database bug.", correct: false }
+        ]
+      },
+      {
+        q: "5. Online Reviews",
+        desc: "An app has 1-star and 5-star reviews only. Why are middle ratings missing?",
+        opts: [
+          { text: "Self-selection bias (only extreme feelings post).", correct: true },
+          { text: "App stores delete 3-star reviews.", correct: false },
+          { text: "System diagnostic error.", correct: false }
+        ]
+      },
+      {
+        q: "6. Seasonal Spike",
+        desc: "Toy sales jump 300% in December. Should you double factory size year-round?",
+        opts: [
+          { text: "Yes, sales will stay high.", correct: false },
+          { text: "No, December is seasonal holiday demand.", correct: true },
+          { text: "Only if prices increase.", correct: false }
+        ]
+      }
+    ];
+
+    // Start App
+    window.addEventListener('DOMContentLoaded', () => {
+      renderClues();
+      renderActions();
+      renderSliders();
+      renderP3();
+      draw3DCanvas();
+    });
+
+    function startChallenge() {
+      const team = document.getElementById('input-team-name').value.trim() || "Anonymous Team";
+      document.getElementById('display-team-name').textContent = team;
+      document.getElementById('team-modal').style.display = 'none';
+
+      // Start 15-min countdown
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+        const mins = Math.floor(timerSeconds / 60);
+        const secs = timerSeconds % 60;
+        document.getElementById('timer-display').textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          alert("Time is up! Let's check your final score!");
+          showFinalSummary();
+        }
+      }, 1000);
+    }
+
+    // Part 1 Logic
+    function renderClues() {
+      const box = document.getElementById('clues-container');
+      box.innerHTML = cluesData.map(c => `
+        <button class="clue-btn" id="clue-${c.id}" onclick="toggleClue(${c.id})">${c.text}</button>
+      `).join('');
+    }
+
+    function toggleClue(id) {
+      const idx = selectedClues.indexOf(id);
+      if (idx > -1) {
+        selectedClues.splice(idx, 1);
+        document.getElementById(`clue-${id}`).classList.remove('selected');
+      } else {
+        if (selectedClues.length < 4) {
+          selectedClues.push(id);
+          document.getElementById(`clue-${id}`).classList.add('selected');
+        }
+      }
+      document.getElementById('btn-submit-clues').disabled = selectedClues.length !== 4;
+    }
+
+    function submitClues() {
+      let correctCount = 0;
+      cluesData.forEach(c => {
+        const btn = document.getElementById(`clue-${c.id}`);
+        btn.disabled = true;
+        if (selectedClues.includes(c.id)) {
+          if (c.isSignal) {
+            correctCount++;
+            btn.classList.add('correct');
+          } else {
+            btn.classList.add('wrong');
+          }
+        }
+      });
+
+      const pts = correctCount * 50; // Max 200 pts
+      addScore(pts);
+
+      const fb = document.getElementById('clues-feedback');
+      fb.className = `feedback show ${correctCount >= 3 ? 'good' : 'bad'}`;
+      fb.innerHTML = `You spotted <strong>${correctCount} / 4</strong> real clues correctly! (+${pts} pts)`;
+
+      document.getElementById('btn-submit-clues').style.display = 'none';
+      document.getElementById('part1-task2').style.display = 'block';
+    }
+
+    function renderActions() {
+      const box = document.getElementById('action-grid');
+      box.innerHTML = actionsData.map(a => `
+        <div class="action-card" id="action-${a.id}" onclick="chooseAction('${a.id}')">
+          <strong>Option ${a.id}:</strong> ${a.text}
+        </div>
+      `).join('');
+    }
+
+    function chooseAction(id) {
+      actionsData.forEach(a => {
+        const el = document.getElementById(`action-${a.id}`);
+        el.classList.add('locked');
+        if (a.id === id) {
+          el.classList.add('chosen');
+          addScore(a.pts);
+          const fb = document.getElementById('action-feedback');
+          fb.className = 'feedback show good';
+          fb.innerHTML = `<strong>Option ${a.id} Chosen (+${a.pts} pts):</strong> ${a.desc}`;
+        }
+      });
+    }
+
+    // Part 2 Logic
+    function renderSliders() {
+      const box = document.getElementById('sliders-container');
+      box.innerHTML = categoriesData.map(cat => `
+        <div class="slider-group">
+          <div class="slider-label">
+            <span>${cat.name} (${cat.margin} margin)</span>
+            <span id="val-${cat.name}">0%</span>
+          </div>
+          <input type="range" class="slider-input" min="0" max="50" value="0" oninput="updateSlider('${cat.name}', this.value)">
+        </div>
+      `).join('');
+    }
+
+    function updateSlider(catName, val) {
+      allocations[catName] = parseInt(val);
+      document.getElementById(`val-${catName}`).textContent = val + '%';
+
+      let totalPct = Object.values(allocations).reduce((a, b) => a + b, 0);
+      document.getElementById('total-space').textContent = totalPct + '%';
+
+      // Calc profit
+      let profit = 0;
+      categoriesData.forEach(c => {
+        const pct = allocations[c.name] || 0;
+        profit += pct * c.profitPerPct;
+      });
+
+      document.getElementById('p2-profit').textContent = `$${profit.toLocaleString()}`;
+      draw3DCanvas();
+    }
+
+    function submitPart2() {
+      let totalPct = Object.values(allocations).reduce((a, b) => a + b, 0);
+      let profit = 0;
+      categoriesData.forEach(c => profit += (allocations[c.name] || 0) * c.profitPerPct);
+
+      const fb = document.getElementById('p2-feedback');
+      if (totalPct > 100) {
+        fb.className = 'feedback show bad';
+        fb.textContent = 'Space exceeds 100%! Reduce slider values.';
+        return;
+      }
+
+      if (profit >= 32500) {
+        addScore(300);
+        fb.className = 'feedback show good';
+        fb.innerHTML = `🎯 Maximum Profit Reached! Earned +300 pts! ($${profit.toLocaleString()})`;
+        document.getElementById('btn-submit-p2').disabled = true;
+      } else {
+        fb.className = 'feedback show bad';
+        fb.innerHTML = `Current Profit: $${profit.toLocaleString()}. Adjust space to reach $32,500 target!`;
+      }
+    }
+
+    // Part 3 Logic
+    function renderP3() {
+      const box = document.getElementById('p3-grid');
+      box.innerHTML = p3Data.map((item, idx) => `
+        <div class="p3-card" id="p3-card-${idx}">
+          <h4>${item.q}</h4>
+          <p>${item.desc}</p>
+          ${item.opts.map((o, oIdx) => `
+            <button class="p3-opt" id="p3-${idx}-${oIdx}" onclick="answerP3(${idx},${oIdx}, ${o.correct})">${o.text}</button>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
+    function answerP3(qIdx, oIdx, isCorrect) {
+      const card = document.getElementById(`p3-card-${qIdx}`);
+      const btns = card.querySelectorAll('.p3-opt');
+      btns.forEach((b, i) => {
+        b.disabled = true;
+        if (i === oIdx) {
+          b.classList.add(isCorrect ? 'correct' : 'wrong');
+        }
+      });
+
+      if (isCorrect) {
+        addScore(50);
+      }
+    }
+
+    // Score Helper
+    function addScore(pts) {
+      totalScore += pts;
+      document.getElementById('total-score').textContent = totalScore;
+      if (totalScore >= 900) {
+        showFinalSummary();
+      }
+    }
+
+    function showFinalSummary() {
+      document.getElementById('final-summary').style.display = 'block';
+      document.getElementById('final-score-val').textContent = totalScore;
+    }
+
+    // Pure Canvas 3D Isometric Bar Renderer with Palette Colors
+    function draw3DCanvas() {
+      const canvas = document.getElementById('canvas3d');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const keys = Object.keys(allocations);
+      const values = Object.values(allocations);
+
+      const originX = 60;
+      const originY = 180;
+      const barWidth = 22;
+      const gap = 16;
+
+      keys.forEach((key, i) => {
+        const val = values[i];
+        const barHeight = val * 2.8;
+
+        const x = originX + i * (barWidth + gap);
+        const y = originY;
+
+        // Front Face - Vibrant Crimson
+        ctx.fillStyle = '#D52F42';
+        ctx.fillRect(x, y - barHeight, barWidth, barHeight);
+
+        // Top Face - Soft Blush Pink
+        ctx.fillStyle = '#FDCFD8';
+        ctx.beginPath();
+        ctx.moveTo(x, y - barHeight);
+        ctx.lineTo(x + 10, y - barHeight - 8);
+        ctx.lineTo(x + barWidth + 10, y - barHeight - 8);
+        ctx.lineTo(x + barWidth, y - barHeight);
+        ctx.closePath();
+        ctx.fill();
+
+        // Right Face - Dark Burgundy
+        ctx.fillStyle = '#9E182B';
+        ctx.beginPath();
+        ctx.moveTo(x + barWidth, y - barHeight);
+        ctx.lineTo(x + barWidth + 10, y - barHeight - 8);
+        ctx.lineTo(x + barWidth + 10, y - 8);
+        ctx.lineTo(x + barWidth, y);
+        ctx.closePath();
+        ctx.fill();
+
+        // Category Label
+        ctx.fillStyle = '#660A18';
+        ctx.font = 'bold 10px system-ui';
+        ctx.fillText(key.substring(0, 4), x, y + 15);
+      });
+    }
+  </script>
+</body>
+</html>
