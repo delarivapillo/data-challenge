@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Freshmen Data Analysis Challenge</title>
+  <title>WBA Data Analysis Challenge</title>
   <style>
     :root {
       --bg: #FFFCF8;             /* Light Cream / Off-White */
@@ -106,7 +106,7 @@
   <!-- Top Navigation Bar -->
   <header>
     <div class="logo-area">
-      <h1>📊 Data Challenge <span>(Freshmen Edition)</span></h1>
+      <h1>📊 WBA Data Challenge <span>(Member Edition)</span></h1>
     </div>
     <div class="header-stats">
       <div class="stat-badge">Team: <span id="display-team-name">Not Set</span></div>
@@ -123,7 +123,7 @@
         <span>Part 1: The Online Bakery Mystery 🧁</span>
         <span style="font-size: 0.85rem; color: var(--text-muted);">Max: 400 pts</span>
       </div>
-      <p class="section-desc"><strong>Scenario:</strong> Website visits jumped by +20% this month, but total bakery orders stayed flat! Why?</p>
+      <p class="section-desc"><strong>Scenario:</strong> Sweet Crumbs, an online bakery, saw website visits rise 20% this month, but total orders stayed completely flat[cite: 1]. Why?</p>
       
       <!-- Task 1 -->
       <h3 style="font-size: 0.95rem; margin-bottom: 10px; color: var(--header-bg);">Task 1: Choose EXACTLY 4 useful clues (Signal vs. Distraction)</h3>
@@ -173,10 +173,10 @@
     <!-- PART 3 -->
     <div class="section-card">
       <div class="section-title">
-        <span>Part 3: Spot the 6 Analytics Tricks! 🔍</span>
+        <span>Part 3: Spot the 6 Common Data Mistakes! 🔍</span>
         <span style="font-size: 0.85rem; color: var(--text-muted);">6 x 50 pts = 300 pts</span>
       </div>
-      <p class="section-desc">Don't let misleading graphs and bad data fool your team! Choose carefully—answers lock instantly.</p>
+      <p class="section-desc">Don't let tricky numbers and sneaky graphs fool your team! Choose carefully—answers lock instantly.</p>
       
       <div class="p3-grid" id="p3-grid"></div>
     </div>
@@ -185,7 +185,7 @@
     <div class="summary-box" id="final-summary">
       <h2 style="color: var(--header-bg); margin-bottom: 10px;">🎉 Challenge Completed!</h2>
       <p style="font-size: 1.1rem; margin-bottom: 15px;">Final Score: <strong id="final-score-val" style="color: var(--accent-dark);">0</strong> / 1000</p>
-      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Get ready to present your 1-minute pitch to the class!</p>
+      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Get ready to present your 1-minute pitch to the room!</p>
       <button class="btn-main" onclick="window.print()">Print / Save Results PDF</button>
     </div>
 
@@ -194,9 +194,9 @@
   <!-- Team Setup Modal -->
   <div class="modal-overlay" id="team-modal">
     <div class="modal">
-      <h2>🚀 Welcome Freshmen!</h2>
-      <p>Enter your team details to start your 15-minute business data challenge.</p>
-      <input type="text" id="input-team-name" placeholder="Team Name (e.g., Data Wizards)" required>
+      <h2>🚀 Welcome WBA Members!</h2>
+      <p>Enter your team details to start your 15-minute data challenge.</p>
+      <input type="text" id="input-team-name" placeholder="Team Name (e.g., WBA Leaders)" required>
       <input type="text" id="input-leader-name" placeholder="Team Leader Name" required>
       <button onclick="startChallenge()">Start 15-Min Timer & Play</button>
     </div>
@@ -240,60 +240,60 @@
     ];
     let allocations = { Clothing:0, Electronics:0, Beauty:0, Home:0, Toys:0, Grocery:0 };
 
-    // Part 3 Data Tricks
+    // Part 3 Data Tricks (Simplified for non-business majors)
     const p3Data = [
       {
-        q: "1. Correlation Trap",
-        desc: "Ice cream sales and sunburns both rise in July. Does ice cream cause sunburns?",
+        q: "1. The Coincidence Trap",
+        desc: "Ice cream sales and sunburns both go up in July. Does eating ice cream cause sunburns?",
         opts: [
-          { text: "Yes, sugar causes skin damage.", correct: false },
-          { text: "No, summer heat drives both.", correct: true },
-          { text: "Yes, data never lies.", correct: false }
+          { text: "Yes, sugar harms your skin.", correct: false },
+          { text: "No, sunny summer weather causes both.", correct: true },
+          { text: "Yes, numbers never lie.", correct: false }
         ]
       },
       {
-        q: "2. Visual Graph Trick",
-        desc: "A chart's Y-axis starts at 90% instead of 0%, making a 1% drop look huge. What is this?",
+        q: "2. The Zoomed-In Graph Trick",
+        desc: "A chart starts its bottom line at 90% instead of 0%, making a tiny 1% drop look like a giant crash. What is this?",
         opts: [
-          { text: "Truncated Y-Axis Distortion", correct: true },
-          { text: "Standard Profit Graph", correct: false },
-          { text: "Predictive Forecasting", correct: false }
+          { text: "A tricky chart scale that exaggerates small changes.", correct: true },
+          { text: "A completely normal financial summary.", correct: false },
+          { text: "A future sales prediction.", correct: false }
         ]
       },
       {
-        q: "3. Survey Bias",
-        desc: "You survey only loyal VIP members about price hikes. What is wrong?",
+        q: "3. The Biased Survey Trap",
+        desc: "You want to know why customers leave, but you only survey your happiest VIP members. What is wrong?",
         opts: [
-          { text: "Nothing, VIPs know best.", correct: false },
-          { text: "Sampling Bias (Hides why regular buyers leave).", correct: true },
-          { text: "Data cleaning error.", correct: false }
+          { text: "Nothing, VIPs always know best.", correct: false },
+          { text: "It hides the true reasons regular buyers quit shopping.", correct: true },
+          { text: "It's a computer glitch.", correct: false }
         ]
       },
       {
-        q: "4. Outlier Distortion",
-        desc: "10 workers earn $40k/yr, but the CEO earns $5 Million. The average salary looks high. Why?",
+        q: "4. The One Extreme Person Trap",
+        desc: "Ten workers make $40,000 a year, but the CEO makes $5 Million. The average salary looks huge! Why?",
         opts: [
-          { text: "Extreme outlier skews the mean.", correct: true },
-          { text: "Everyone gets paid fairly.", correct: false },
-          { text: "SQL Database bug.", correct: false }
+          { text: "One massive number dragged the average way up.", correct: true },
+          { text: "Everyone at the company makes great money.", correct: false },
+          { text: "It's a database typing error.", correct: false }
         ]
       },
       {
-        q: "5. Online Reviews",
-        desc: "An app has 1-star and 5-star reviews only. Why are middle ratings missing?",
+        q: "5. The Loud Voices Trap",
+        desc: "An app review page only has 1-star angry rants or 5-star glowing praise. Where did normal reviews go?",
         opts: [
-          { text: "Self-selection bias (only extreme feelings post).", correct: true },
-          { text: "App stores delete 3-star reviews.", correct: false },
-          { text: "System diagnostic error.", correct: false }
+          { text: "People with strong feelings are most likely to post reviews.", correct: true },
+          { text: "The app store deletes normal ratings.", correct: false },
+          { text: "The system broke down.", correct: false }
         ]
       },
       {
-        q: "6. Seasonal Spike",
-        desc: "Toy sales jump 300% in December. Should you double factory size year-round?",
+        q: "6. The Holiday Rush Trap",
+        desc: "Toy sales triple in December. Should the store double its size all year round?",
         opts: [
-          { text: "Yes, sales will stay high.", correct: false },
-          { text: "No, December is seasonal holiday demand.", correct: true },
-          { text: "Only if prices increase.", correct: false }
+          { text: "Yes, sales will stay this high forever.", correct: false },
+          { text: "No, December is just a temporary holiday spike.", correct: true },
+          { text: "Only if items get more expensive.", correct: false }
         ]
       }
     ];
